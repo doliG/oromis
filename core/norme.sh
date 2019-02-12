@@ -5,7 +5,7 @@ printtest "Norminette"
 printinfo "Basic norminette test. No output = success."
 waitkeypress
 
-find $1 -name "*.[ch]" | xargs norminette | grep -B 1 "Warning\|Error"
+find $PROJECT_PATH -name "*.[ch]" | xargs norminette | grep -B 1 "Warning\|Error"
 
 # plus +
 # mult *
@@ -27,7 +27,7 @@ ${C_YEL}It could countain false positive.
 No ouput = success."
 waitkeypress
 
-find $1 -name "*.[ch]" -exec grep --colour -EHn "\+$| \*$|\-$| \/$|\&$|\|$|\%$|\?$|\=$| >$| <$|\!$|\:$" {} \;
+find $PROJECT_PATH -name "*.[ch]" -exec grep --colour -EHn "\+$| \*$|\-$| \/$|\&$|\|$|\%$|\?$|\=$| >$| <$|\!$|\:$" {} \;
 
 # Note : check with and without backslash
 

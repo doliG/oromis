@@ -5,6 +5,7 @@ if [ ! -d "$1" ]; then
 	exit
 fi
 
+PROJECT_PATH=$1
 BASE=$(dirname $0)
 
 # Dependancies

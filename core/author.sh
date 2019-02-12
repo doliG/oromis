@@ -4,8 +4,8 @@
 
 #############################
 printtest "Author file"
-if [ -f "$1/author" ]; then
-	cat -e "$1/author"
-elif [ -f "$1/auteur" ]; then
-	cat -e "$1/auteur"
+if [ -f "$PROJECT_PATH/author" ]; then
+	cat -e "$PROJECT_PATH/author"
+elif [ -f "$PROJECT_PATH/auteur" ]; then
+	cat -e "$PROJECT_PATH/auteur"
 fi
