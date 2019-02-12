@@ -1,7 +1,7 @@
 #!/bin/bash
 
 printtest () {
-	printf "${C_MAG}${C_UND}\nTest:${C_RESU} ${1}${C_RES}\n"
+	printf "${C_CYA}${C_UND}\nTest:${C_RESU} ${1}${C_RES}\n"
 }
 
 printinfo () {

@@ -9,7 +9,9 @@ C_RES="\e[0m" # Reset all
 C_RED="\e[31m" # Red
 C_YEL="\e[33m" # YELLOW
 C_GRN="\e[32m" # Green
-C_MAG="\e[36m" # Magenta
+C_CYA="\e[36m" # Cyan
+C_MAG="\e[35m" # Magenta
+
 C_GRY="\e[90m" # Grey
 C_LGR="\e[37m" # Lightgrey
 C_LBL="\e[94m"
