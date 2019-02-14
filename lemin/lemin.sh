@@ -27,40 +27,51 @@ testmap () {
 		if [ "$got" -eq "$estimated" ]; then
 			printf "${C_GRN}Perfect${C_RES}\n"
 		elif [ "$got" -lt "$estimated" ]; then
-			printf "${C_MAG}Awesome 😎${C_RES} (diff %d)\n" `echo "$got" - "$estimated" | bc`
+			printf "${C_MAG}Awesome 😎 ${C_RES} (%+d)\n" `echo "$got" - "$estimated" | bc`
 		elif [ "$got" -lt "`echo \"$estimated + 4\" | bc`" ]; then
-			printf "${C_GRN}Great${C_RES} (diff %d)\n" `echo "$got" - "$estimated" | bc`
+			printf "${C_GRN}Great     ${C_RES} (%+d)\n" `echo "$got" - "$estimated" | bc`
+		elif [ "$got" -lt "`echo \"$estimated + 11\" | bc`" ]; then
+			printf "${C_YEL}Ok        ${C_RES} (%+d)\n" `echo "$got" - "$estimated" | bc`
+		elif [ "$got" -lt "`echo \"$estimated + 16\" | bc`" ]; then
+			printf "${C_YEL}Warning   ${C_RES} (%+d)\n" `echo "$got" - "$estimated" | bc`
 		else
-			printf "${C_YEL}Warning${C_RES} (diff %d)\n" `echo "$got" - "$estimated" | bc`
+			printf "${C_RED}Error     ${C_RES} (%+d)\n" `echo "$got" - "$estimated" | bc`
 		fi
 	done
 }
 
 # $1 must be name prefix, $2 must be generator arg
+generateallmaps () {
+	rm -r "$BASE/maps"
+	mkdir -p "$BASE/maps"
+	printinfo "Creating all maps with generator. Please wait, this can take a while..."
+	generatemap "flowone" "--flow-one" &
+	generatemap "flowten" "--flow-ten" &
+	generatemap "flowthousand" "--flow-thousand" &
+	generatemap "big" "--big" &
+	generatemap "bigsup" "--big-superposition" &
+	wait
+	echo
+}
+
+# $1 must be name prefix, $2 must be generator arg
 generatemap () {
-	mkdir -p $BASE/maps
-	for f in {1..15}
+	for f in {1..30}
 	do
 		printf "${C_GRY}.${C_RES}"
-		./$BASE/generator $2 > "$BASE/maps/$1$(printf '%02d' $f)"
+		./$BASE/generator "$2"  > "$BASE/maps/$1$(printf '%02d' $f)"
 		sleep 1
 	done
-	echo
 }
 
 # $1 must be name prefix, $2 must be generator arg
 runtest () {
 	printtest "$2"
 	printinfo "This test will:
-	- generate 15 maps with $2 argument,
-	- run lem-in for each map and count lines of output
+	- run lem-in for each '$2' map and count lines of output
 	- show difference between output and what generator expect."
-	if [ "$3" -eq 1 ]; then
-		printinfo "Creating 15 maps $2 with generator"
-		generatemap "$1" "$2"
-	fi
 	waitkeypress
-	printinfo "Running lem-in 15 times in $2 map"
+	printinfo "Running lem-in for maps '$2'"
 	testmap "$1"
 }
 
@@ -73,6 +84,10 @@ if [ -d "$BASE/maps" ]; then
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		generate=1
 	fi
+fi
+
+if [ "$generate" -eq 1 ]; then
+	generateallmaps
 fi
 
 runtest "flowone" "--flow-one" "$generate"
