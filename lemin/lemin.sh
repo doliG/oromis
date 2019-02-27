@@ -59,7 +59,7 @@ generatemap () {
 	for f in {1..30}
 	do
 		printf "${C_GRY}.${C_RES}"
-		./$BASE/generator "$2"  > "$BASE/maps/$1$(printf '%02d' $f)"
+		$BASE/generator "$2"  > "$BASE/maps/$1$(printf '%02d' $f)"
 		sleep 1
 	done
 }
@@ -76,6 +76,9 @@ runtest () {
 }
 
 #############################
+fileexist "$PROJECT_PATH/lem-in"
+fileisexecutable "$PROJECT_PATH/lem-in"
+
 generate=1
 if [ -d "$BASE/maps" ]; then
 	read -p "Would you like to generate new maps [y/N]? " -n 1 -r
