@@ -19,18 +19,3 @@ BASE=$(dirname $0)
 . "$BASE/core/protected.sh"
 . "$BASE/core/makefile.sh"
 . "$BASE/core/symbols.sh"
-
-#############################
-: ' Todo
-- [x] author file
-- [x] Header (by)
-- [x] Norminette
-- [x] Operator at the end of a line
-- [x] Makefile
-	- rules
-	- relink
-	- recompilation dun seul fichier
-- [x] Malloc
-- [x] Fonction interdites (nm -u)
-- [ ] Include non utilisés
-'
